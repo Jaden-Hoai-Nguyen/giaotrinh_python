@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quest 🚀 - Học Python Tương Tác (Nâng cấp)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for better look in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827; /* bg-gray-900 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151; /* bg-gray-700 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563; /* bg-gray-600 */
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .prose-dark {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .prose-dark h1, .prose-dark h2, .prose-dark h3, .prose-dark h4 {
+            color: #ffffff;
+        }
+        .prose-dark strong {
+            color: #ffffff;
+        }
+        .prose-dark code {
+            color: #f3f4f6; /* text-gray-100 */
+            background-color: #374151; /* bg-gray-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .prose-dark pre {
+            background-color: #1f2937; /* bg-gray-800 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        .prose-dark a {
+            color: #5eead4; /* text-teal-300 */
+            text-decoration: none;
+        }
+        .prose-dark a:hover {
+            text-decoration: underline;
+        }
+         .prose-dark ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        /* Add a little triangle to accordion summary when open */
+        details[open] > summary::before {
+            transform: rotate(90deg);
+        }
+        summary::before {
+            content: '▶';
+            display: inline-block;
+            margin-right: 0.5rem;
+            transition: transform 0.2s;
+            font-size: 0.8em;
+        }
+        summary {
+            cursor: pointer;
+            list-style: none; /* Remove default marker */
+        }
+        summary::-webkit-details-marker {
+            display: none; /* Hide default marker in Chrome */
+        }
+        .copy-btn-feedback {
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div class="flex flex-col md:flex-row h-screen">
+        <!-- Sidebar - Navigation -->
+        <aside id="sidebar" class="w-full md:w-80 bg-gray-900 border-r border-gray-700 p-4 space-y-4 overflow-y-auto">
+            <h1 class="text-2xl font-bold text-white flex items-center">
+                <span class="text-3xl mr-2">🚀</span> Python Quest
+            </h1>
+            <nav id="session-list" class="space-y-1">
+                <!-- Session links will be dynamically inserted here -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto">
+            <!-- Content will be dynamically inserted here -->
+        </main>
+    </div>
+
+    <script>
+        // --- MODEL ---
+        // Dữ liệu giáo trình được mở rộng với nội dung từ W3Schools.
+        const curriculumData = [
+            {
+                id: 0,
+                title: "Trang chủ",
+                isHome: true,
+                objective: `Chào mừng bạn đến với Python Quest! Một hành trình 15 buổi học để chinh phục ngôn ngữ lập trình Python, nay đã được nâng cấp với kiến thức chuyên sâu.`,
+                content: [
+                    {
+                        title: "Bắt đầu như thế nào?",
+                        description: `
+                            <p>Bên trái là danh sách 15 buổi học, tương ứng với 15 "cửa ải" trong hành trình của bạn.</p>
+                            <p class="mt-2">Hãy nhấp vào "Buổi 1: Giới thiệu và Khởi đầu" để bắt đầu cuộc phiêu lưu!</p>
+                            <p class="mt-2">Mỗi buổi học đều có phần lý thuyết, ví dụ code, bài tập, và một "Sân chơi" để bạn thực hành ngay trên web.</p>
+                        `
+                    },
+                    {
+                        title: "Phương pháp học tập",
+                        description: `
+                            <ul class="list-disc list-inside space-y-2">
+                                <li><strong>Learning by doing:</strong> Thực hành ngay sau lý thuyết.</li>
+                                <li><strong>Project-based:</strong> Học qua dự án thực tế ở cuối khóa.</li>
+                                <li><strong>Gamification:</strong> Mỗi buổi học là một thử thách để bạn vượt qua.</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            {
+                id: 1,
+                title: "Buổi 1: Giới thiệu và Khởi đầu",
+                objective: "Hiểu Python là gì và tại sao nên học. Cài đặt môi trường lập trình. Viết chương trình đầu tiên.",
+                playground_placeholder: `print("Xin chào Python Quest!")\n\n# Thử in ra tên của bạn xem nào!\nprint("Tên tôi là...")`,
+                content: [
+                     {
+                        title: "Python là gì?",
+                        description: `
+                            <p>Python là một ngôn ngữ lập trình cấp cao, phổ biến và rất mạnh mẽ. Nó được yêu thích vì cú pháp sáng sủa, dễ đọc, gần gũi với ngôn ngữ tự nhiên.</p>
+                            <p class="mt-2"><strong>Ứng dụng của Python:</strong></p>
+                            <ul class="list-disc list-inside ml-4 mt-2">
+                                <li>Phát triển Web (Django, Flask)</li>
+                                <li>Trí tuệ nhân tạo (AI) và Học máy (Machine Learning)</li>
+                                <li>Phân tích dữ liệu và Khoa học dữ liệu</li>
+                                <li>Làm game (Pygame)</li>
+                                <li>Tự động hóa các tác vụ (scripting)</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Cú pháp Python",
+                        description: `
+                            <p>So với các ngôn ngữ khác, Python được thiết kế để dễ đọc và có một số quy tắc cú pháp đặc trưng:</p>
+                            <ul class="list-disc list-inside ml-4 mt-2">
+                                <li><strong>Thụt lề (Indentation):</strong> Python dùng thụt lề (khoảng trắng ở đầu dòng) để xác định khối lệnh, thay vì dùng dấu ngoặc nhọn <code>{}</code> như nhiều ngôn ngữ khác. Việc thụt lề sai sẽ gây ra lỗi.</li>
+                                <li><strong>Comment (Ghi chú):</strong> Dùng dấu <code>#</code> để viết ghi chú. Python sẽ bỏ qua mọi thứ từ dấu <code>#</code> đến cuối dòng.</li>
+                            </ul>
+                        `,
+                        code_example: `# Đây là một comment\nif 5 > 2:\n    # Dòng này được thụt lề, nó thuộc khối lệnh 'if'.\n    print("Năm lớn hơn hai!")`
+                    },
+                    {
+                        title: "Chương trình đầu tiên: 'Xin chào!'",
+                        description: "Hàm <code>print()</code> được dùng để hiển thị nội dung ra màn hình. Đây là lệnh đầu tiên mà hầu hết lập trình viên đều học.",
+                        code_example: `print("Xin chào các bạn!")\nprint("Tôi đang học Python")`
+                    }
+                ],
+                homework: {
+                    title: "Bài tập về nhà",
+                    tasks: [
+                        "Viết chương trình in ra tên và tuổi của bạn.",
+                        "Thử viết một comment trong code của bạn.",
+                        "Cố ý viết sai thụt lề và xem Python báo lỗi như thế nào."
+                    ]
+                }
+            },
+            {
+                id: 2,
+                title: "Buổi 2: Biến và Kiểu dữ liệu",
+                objective: "Hiểu khái niệm biến, nắm các kiểu dữ liệu cơ bản và thực hiện các phép toán đơn giản.",
+                playground_placeholder: `ten = "Minh"\ntuoi = 15\n\n# Thử in ra bằng f-string\nprint(f"Xin chào {ten}, bạn năm nay {tuoi} tuổi.")\n\n# Tính toán đơn giản\nx = 10\ny = 25\nprint(f"{x} + {y} = {x + y}")`,
+                content: [
+                    {
+                        title: "Biến (Variables)",
+                        description: `
+                            <p>Biến là nơi lưu trữ giá trị dữ liệu. Python không cần khai báo kiểu dữ liệu cho biến, biến được tạo ra ngay khi bạn gán giá trị cho nó.</p>
+                            <h4>Quy tắc đặt tên biến:</h4>
+                            <ul>
+                                <li>Phải bắt đầu bằng một chữ cái hoặc dấu gạch dưới <code>_</code>.</li>
+                                <li>Không thể bắt đầu bằng số.</li>
+                                <li>Chỉ có thể chứa ký tự chữ-số và dấu gạch dưới (A-z, 0-9, và _ ).</li>
+                                <li>Phân biệt chữ hoa chữ thường (<code>age</code>, <code>Age</code> và <code>AGE</code> là ba biến khác nhau).</li>
+                            </ul>`,
+                        code_example: `x = 5 # x là kiểu int\ny = "Chào Python" # y là kiểu str\nprint(x)\nprint(y)`
+                    },
+                    {
+                        title: "Gán nhiều giá trị",
+                        description: "Python cho phép bạn gán giá trị cho nhiều biến trên cùng một dòng.",
+                        code_example: `# Gán nhiều giá trị cho nhiều biến\nx, y, z = "Cam", "Táo", "Chuối"\nprint(x)\nprint(y)\nprint(z)\n\n# Gán một giá trị cho nhiều biến\na = b = c = "Chung một giá trị"\nprint(a)\nprint(b)\nprint(c)`
+                    },
+                    {
+                        title: "Các kiểu dữ liệu cơ bản",
+                        description: `
+                            <p>Python có nhiều kiểu dữ liệu được tích hợp sẵn. Dưới đây là những loại phổ biến nhất:</p>
+                            <ul>
+                                <li><strong>Text Type:</strong> <code>str</code> (chuỗi)</li>
+                                <li><strong>Numeric Types:</strong> <code>int</code> (số nguyên), <code>float</code> (số thực), <code>complex</code> (số phức)</li>
+                                <li><strong>Sequence Types:</strong> <code>list</code>, <code>tuple</code>, <code>range</code></li>
+                                <li><strong>Mapping Type:</strong> <code>dict</code> (từ điển)</li>
+                                <li><strong>Set Types:</strong> <code>set</code>, <code>frozenset</code></li>
+                                <li><strong>Boolean Type:</strong> <code>bool</code> (<code>True</code> hoặc <code>False</code>)</li>
+                                <li><strong>Binary Types:</strong> <code>bytes</code>, <code>bytearray</code>, <code>memoryview</code></li>
+                            </ul>
+                            <p class="mt-2">Bạn có thể dùng hàm <code>type()</code> để kiểm tra kiểu dữ liệu của một biến.</p>`,
+                        code_example: `x = 5\nprint(type(x))\ny = "Hello"\nprint(type(y))\nz = 3.14\nprint(type(z))`
+                    }
+                ],
+                homework: {
+                    title: "Bài tập về nhà",
+                    tasks: [
+                        "Tạo các biến để lưu thông tin cá nhân của bạn (tên, lớp, trường).",
+                        "Sử dụng kỹ thuật gán nhiều giá trị để tạo 3 biến lưu tên 3 loại quả yêu thích.",
+                        "Tạo một biến số nguyên, một biến số thực và dùng hàm <code>type()</code> để kiểm tra kiểu của chúng."
+                    ]
+                }
+            },
+            {
+                id: 3, title: "Buổi 3: Nhập xuất & Chuỗi",
+                objective: "Nhận dữ liệu từ người dùng, chuyển đổi kiểu dữ liệu và học các thao tác cơ bản với chuỗi.",
+                playground_placeholder: `# Sân chơi chưa hỗ trợ input(), bạn hãy giả lập nhé!\n\n# Giả sử người dùng nhập "18"\ntuoi_str = "18"\ntuoi_so = int(tuoi_str)\n\nprint(f"Tuổi của bạn là {tuoi_so}")\nprint(f"Năm sau bạn {tuoi_so + 1} tuổi.")`,
+                content: [
+                    {
+                        title: "1. Nhập dữ liệu từ người dùng: hàm input()",
+                        description: `
+                            <p>Hàm <code>input()</code> sẽ dừng chương trình và chờ người dùng nhập vào một chuỗi văn bản từ bàn phím, sau đó nhấn Enter.</p>
+                            <p class="mt-2">Giá trị nhập vào luôn luôn là kiểu chuỗi (string), kể cả khi bạn nhập số.</p>`,
+                        code_example: `ten = input("Nhập tên của bạn: ")\nprint(f"Xin chào {ten}!")`
+                    },
+                    {
+                        title: "2. Chuyển đổi kiểu dữ liệu (Type Casting)",
+                        description: `
+                            <p>Vì <code>input()</code> luôn trả về chuỗi, chúng ta cần chuyển đổi nó sang kiểu số nếu muốn thực hiện các phép toán.</p>
+                            <ul>
+                                <li><code>int()</code>: Chuyển đổi sang số nguyên.</li>
+                                <li><code>float()</code>: Chuyển đổi sang số thực.</li>
+                                <li><code>str()</code>: Chuyển đổi sang chuỗi (thường dùng để ghép chuỗi với số).</li>
+                            </ul>`,
+                        code_example: `tuoi_str = input("Nhập tuổi của bạn: ")\ntuoi_int = int(tuoi_str)\n\nprint(f"Năm sau bạn sẽ {tuoi_int + 1} tuổi.")`
+                    },
+                    {
+                        title: "3. Cắt chuỗi (Slicing)",
+                        description: "Bạn có thể lấy một phần của chuỗi bằng cú pháp cắt lát. Chỉ định chỉ số bắt đầu và kết thúc, ngăn cách bằng dấu hai chấm.",
+                        code_example: `b = "Hello, World!"\nprint(b[2:5]) # Lấy từ vị trí 2 đến 4\nprint(b[:5]) # Lấy từ đầu đến vị trí 4\nprint(b[7:]) # Lấy từ vị trí 7 đến cuối`
+                    },
+                    {
+                        title: "4. Một số phương thức chuỗi hữu ích",
+                        description: `
+                        <p>Python có rất nhiều phương thức chuỗi tích hợp sẵn.</p>
+                        <ul>
+                            <li><code>strip()</code>: Loại bỏ khoảng trắng ở đầu và cuối chuỗi.</li>
+                            <li><code>lower()</code>: Chuyển chuỗi thành chữ thường.</li>
+                            <li><code>upper()</code>: Chuyển chuỗi thành chữ hoa.</li>
+                            <li><code>replace()</code>: Thay thế một chuỗi con bằng một chuỗi con khác.</li>
+                            <li><code>split()</code>: Tách chuỗi thành một danh sách (list) các chuỗi con.</li>
+                        </ul>`,
+                        code_example: `a = "  Xin chào, Việt Nam!  "\nprint(a.strip())\nprint(a.upper())\nprint(a.replace("V", "Ph"))\nprint(a.split(",")) # Tách bởi dấu phẩy`
+                    }
+                ],
+                 homework: {
+                    title: "Bài tập về nhà",
+                    tasks: [
+                        "Viết một máy tính cộng, trừ, nhân, chia 2 số được nhập từ bàn phím.",
+                        "Viết chương trình chuyển đổi nhiệt độ từ độ C (Celsius) sang độ F (Fahrenheit). Công thức: F = (C * 9/5) + 32.",
+                        "Cho chuỗi <code>s = 'python is fun'</code>. Viết code để in ra chuỗi <code>'PYTHON IS FUN'</code>."
+                    ]
+                }
+            },
+            { 
+                id: 4, 
+                title: "Buổi 4: Booleans & Câu điều kiện", 
+                objective: "Hiểu về giá trị Boolean, các toán tử và cách sử dụng câu lệnh if-elif-else để rẽ nhánh chương trình.", 
+                playground_placeholder: `diem = 7.5\n\nif diem >= 8.0:\n    print("Giỏi")\nelif diem >= 6.5:\n    print("Khá")\nelse:\n    print("Trung bình")\n\n# Thử thay đổi giá trị của biến 'diem' xem sao!`,
+                content: [
+                    {
+                        title: "1. Giá trị Boolean",
+                        description: "<p>Trong lập trình, bạn thường cần biết một biểu thức là <code>True</code> (Đúng) hay <code>False</code> (Sai). Python chỉ có hai giá trị Boolean này. Hầu hết mọi giá trị đều được đánh giá là <code>True</code> nếu nó có một số loại nội dung.</p><p>Các giá trị sau được đánh giá là <code>False</code>: <code>False</code>, <code>None</code>, <code>0</code>, <code>\"\"</code> (chuỗi rỗng), <code>()</code>, <code>[]</code>, <code>{}</code> (các sequence rỗng).</p>",
+                        code_example: `print(10 > 9) # True\nprint(10 == 9) # False\nprint(bool("Hello")) # True\nprint(bool(0)) # False`
+                    },
+                    {
+                        title: "2. Toán tử (Operators)",
+                        description: `
+                        <p>Toán tử được sử dụng để thực hiện các thao tác trên các biến và giá trị.</p>
+                        <ul>
+                            <li><strong>Toán tử số học:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (chia lấy dư), <code>**</code> (lũy thừa), <code>//</code> (chia lấy phần nguyên).</li>
+                            <li><strong>Toán tử so sánh:</strong> <code>==</code>, <code>!=</code>, <code>></code>, <code><</code>, <code>>=</code>, <code><=</code>.</li>
+                            <li><strong>Toán tử logic:</strong> <code>and</code>, <code>or</code>, <code>not</code>.</li>
+                        </ul>`,
+                        code_example: `x = 5\nprint(x > 3 and x < 10) # True vì cả hai điều kiện đều đúng\n\ny = 12\nprint(y % 5) # In ra 2 (số dư của 12 chia 5)`
+                    },
+                    {
+                        title: "3. Câu lệnh if, elif, else",
+                        description: "Đây là cấu trúc cho phép chương trình của bạn thực hiện các hành động khác nhau dựa trên các điều kiện khác nhau.",
+                        code_example: `# Giả lập input từ người dùng\ndiem_str = "8.5"\ndiem = float(diem_str)\n\nif diem >= 8.0:\n    print("Học lực: Giỏi")\nelif diem >= 6.5:\n    print("Học lực: Khá")\nelif diem >= 5.0:\n    print("Học lực: Trung bình")\nelse:\n    print("Học lực: Yếu")`
+                    },
+                    {
+                        title: "4. Lồng nhau (Nested If) và câu lệnh pass",
+                        description: "<p>Bạn có thể có các câu lệnh <code>if</code> bên trong các câu lệnh <code>if</code> khác, đây được gọi là lồng nhau.</p><p>Câu lệnh <code>pass</code> được sử dụng khi một câu lệnh được yêu cầu về mặt cú pháp nhưng bạn không muốn bất kỳ mã nào thực thi. Nó hoạt động như một trình giữ chỗ.</p>",
+                        code_example: `x = 41\n\nif x > 10:\n  print("Trên 10,")\n  if x > 20:\n    print("và cũng trên 20!")\n  else:\n    print("nhưng không trên 20.")\n\nif x > 50:\n    pass # Chưa cần xử lý gì ở đây`
+                    }
+                ], 
+                homework: {
+                    title: "Bài tập về nhà",
+                    tasks: ["Viết chương trình kiểm tra một số nhập vào là số chẵn hay lẻ.", "Viết chương trình kiểm tra xem một năm có phải là năm nhuận hay không.", "Viết chương trình giải phương trình bậc nhất ax + b = 0."]
+                } 
+            },
+            {
+                id: 5, title: "Buổi 5: Vòng lặp FOR",
+                objective: "Hiểu và sử dụng vòng lặp for để duyệt qua các đối tượng tuần tự như list, tuple, string...",
+                playground_placeholder: `# In ra các số từ 0 đến 4\nfor i in range(5):\n    print(f"Số thứ {i}")\n\n# Tính tổng\ntong = 0\nfor i in range(1, 6):\n    tong = tong + i\nprint(f"Tổng từ 1 đến 5 là {tong}")`,
+                content: [
+                    {
+                        title: "1. Vòng lặp For cơ bản",
+                        description: "Vòng lặp <code>for</code> được sử dụng để lặp qua một sequence (có thể là một list, tuple, dictionary, set hoặc string).",
+                        code_example: `hoa_qua = ["táo", "chuối", "dâu tây"]\nfor x in hoa_qua:\n  print(x)`
+                    },
+                    {
+                        title: "2. Duyệt chuỗi (Looping Through a String)",
+                        description: "Vì chuỗi cũng là một sequence, chúng ta có thể duyệt qua các ký tự trong chuỗi.",
+                        code_example: `for x in "chuối":\n  print(x)`
+                    },
+                    {
+                        title: "3. Hàm range()",
+                        description: "Hàm <code>range()</code> trả về một chuỗi số, bắt đầu từ 0 theo mặc định, tăng thêm 1 và kết thúc tại một số được chỉ định. Cú pháp: <code>range(start, stop, step)</code>.",
+                        code_example: `# In các số từ 0 đến 5\nfor i in range(6):\n    print(i)\n\n# In các số từ 2 đến 6\nfor i in range(2, 7):\n    print(i)\n\n# In các số chẵn từ 0 đến 10\nfor i in range(0, 11, 2):\n    print(i)`
+                    },
+                    {
+                        title: "4. Else trong vòng lặp For",
+                        description: "Từ khóa <code>else</code> trong vòng lặp <code>for</code> chỉ định một khối mã sẽ được thực thi khi vòng lặp kết thúc hoàn toàn (không bị ngắt bởi <code>break</code>).",
+                        code_example: `for x in range(6):\n  print(x)\nelse:\n  print("Vòng lặp đã kết thúc!")`
+                    }
+                ],
+                homework: {
+                    title: "Bài tập về nhà",
+                    tasks: ["Viết chương trình in ra bảng cửu chương 5.", "Viết chương trình tính tổng các số từ 1 đến N (với N được nhập từ bàn phím).", "Sử dụng vòng lặp for và <code>range()</code> để in ra các số lẻ từ 1 đến 20."]
+                }
+            },
+            { id: 6, title: "Buổi 6: Vòng lặp WHILE", objective: "Sử dụng vòng lặp while, câu lệnh break và continue.", playground_placeholder: `i = 1\nwhile i < 6:\n  print(i)\n  i += 1`, content: [], homework: {} },
+            { 
+                id: 7, 
+                title: "Buổi 7: Danh sách (Lists)", 
+                objective: "Học cách tạo, truy cập, thay đổi, thêm, xóa và sắp xếp các phần tử trong danh sách.", 
+                playground_placeholder: `mon_hoc = ["Toán", "Văn", "Anh"]\nprint(mon_hoc)\n\n# Thêm một môn học\nmon_hoc.append("Lý")\nprint(mon_hoc)\n\n# Truy cập phần tử đầu tiên\nprint(f"Môn học đầu tiên là {mon_hoc[0]}")`,
+                content: [
+                     {
+                        title: "1. Giới thiệu về List",
+                        description: "<p>List là một tập hợp có thứ tự và có thể thay đổi. Trong Python, list được viết bằng dấu ngoặc vuông <code>[]</code>. Các phần tử trong list có thể có kiểu dữ liệu khác nhau.</p>",
+                        code_example: `list_trai_cay = ["táo", "chuối", "dâu"]\nlist_so = [1, 5, 7, 9, 3]\nlist_hon_hop = ["abc", 34, True, 40, "male"]\nprint(list_trai_cay)`
+                    },
+                    {
+                        title: "2. Truy cập và thay đổi phần tử",
+                        description: "<p>Bạn có thể truy cập các phần tử trong list bằng cách tham chiếu đến chỉ số (index) của nó, bắt đầu từ 0. Bạn cũng có thể thay đổi giá trị của một phần tử cụ thể.</p>",
+                        code_example: `trai_cay = ["táo", "chuối", "dâu"]\nprint(trai_cay[1]) # In ra 'chuối'\n\ntrai_cay[1] = "nho"\nprint(trai_cay) # In ra ['táo', 'nho', 'dâu']`
+                    },
+                    {
+                        title: "3. Các phương thức thêm phần tử",
+                        description: "<ul><li><code>append()</code>: Thêm một phần tử vào cuối list.</li><li><code>insert()</code>: Chèn một phần tử vào một vị trí được chỉ định.</li><li><code>extend()</code>: Nối một list (hoặc bất kỳ iterable nào) vào cuối list hiện tại.</li></ul>",
+                        code_example: `trai_cay = ["táo", "chuối", "dâu"]\ntrai_cay.append("cam")\nprint(trai_cay)\n\ntrai_cay.insert(1, "chanh")\nprint(trai_cay)\n\ntrai_cay_nhiet_doi = ["xoài", "dứa"]\ntrai_cay.extend(trai_cay_nhiet_doi)\nprint(trai_cay)`
+                    },
+                    {
+                        title: "4. Các phương thức xóa phần tử",
+                        description: "<ul><li><code>remove()</code>: Xóa phần tử được chỉ định.</li><li><code>pop()</code>: Xóa phần tử tại vị trí được chỉ định (hoặc phần tử cuối cùng nếu không có chỉ số).</li><li><code>del</code>: Từ khóa để xóa phần tử tại vị trí chỉ định hoặc xóa toàn bộ list.</li><li><code>clear()</code>: Làm rỗng list.</li></ul>",
+                        code_example: `trai_cay = ["táo", "chuối", "dâu", "cam"]\ntrai_cay.remove("chuối")\nprint(trai_cay)\n\ntrai_cay.pop(1)\nprint(trai_cay)\n\ndel trai_cay[0]\nprint(trai_cay)\n\ntrai_cay.clear()\nprint(trai_cay)`
+                    },
+                    {
+                        title: "5. Sắp xếp List",
+                        description: "<p>Phương thức <code>sort()</code> sẽ sắp xếp list theo thứ tự bảng chữ cái hoặc số học, tăng dần theo mặc định. Để sắp xếp giảm dần, sử dụng <code>sort(reverse = True)</code>.</p>",
+                        code_example: `trai_cay = ["cam", "xoài", "táo", "dứa", "chuối"]\ntrai_cay.sort()\nprint(trai_cay)\n\nso = [100, 50, 65, 82, 23]\nso.sort(reverse=True)\nprint(so)`
+                    }
+                ], 
+                homework: {
+                    title: "Bài tập về nhà",
+                    tasks: [
+                        "Tạo một danh sách các môn học bạn yêu thích. Sau đó thêm 'Lập trình' vào cuối danh sách.",
+                        "Từ danh sách trên, hãy xóa môn học đầu tiên.",
+                        "Tạo một danh sách các số bất kỳ, sau đó sắp xếp chúng theo thứ tự từ lớn đến bé."
+                        ]
+                } 
+            },
+            { id: 8, title: "Buổi 8: Tuples & Sets", objective: "Phân biệt và sử dụng hai loại cấu trúc dữ liệu Tuple và Set.", playground_placeholder: `my_tuple = ("táo", "chuối", "dâu")\nprint(my_tuple)\n\nmy_set = {"táo", "chuối", "dâu"}\nprint(my_set)`, content: [], homework: {} },
+            { id: 9, title: "Buổi 9: Từ điển (Dictionaries)", objective: "Hiểu cấu trúc key-value. Thao tác với dictionary. Ứng dụng trong quản lý dữ liệu.", playground_placeholder: `hoc_sinh = {\n  "ten": "Minh",\n  "tuoi": 15\n}\nprint(hoc_sinh["ten"])`, content: [], homework: {} },
+            { id: 10, title: "Buổi 10: Hàm (Functions)", objective: "Tạo và sử dụng hàm, tham số, giá trị trả về và Lambda.", playground_placeholder: `def chao(ten):\n  print(f"Xin chào, {ten}!")\n\nchao("Python Quest")`, content: [], homework: {} },
+            { id: 11, title: "Buổi 11: Xử lý File & JSON", objective: "Đọc và ghi file text, xử lý dữ liệu JSON.", content: [], homework: {} },
+            { id: 12, title: "Buổi 12: Lập trình hướng đối tượng (OOP)", objective: "Tìm hiểu về Class, Object và các khái niệm cơ bản của OOP.", content: [], homework: {} },
+            { id: 13, title: "Buổi 13: Kế thừa (Inheritance)", objective: "Hiểu và áp dụng tính kế thừa trong OOP.", content: [], homework: {} },
+            { id: 14, title: "Buổi 14: Module (Math, Datetime, Random)", objective: "Sử dụng các module có sẵn để giải quyết bài toán.", content: [], homework: {} },
+            { id: 15, title: "Buổi 15: Dự án cuối khóa", objective: "Áp dụng tất cả kiến thức đã học để xây dựng một dự án hoàn chỉnh.", content: [], homework: {} }
+        ];
+
+        // --- CONTROLLER ---
+        const app = {
+            activeSessionId: 0,
+            
+            init() {
+                document.addEventListener('DOMContentLoaded', () => {
+                    this.renderSidebar();
+                    this.renderSession(this.activeSessionId);
+                });
+            },
+
+            renderSidebar() {
+                const sessionListEl = document.getElementById('session-list');
+                sessionListEl.innerHTML = '';
+                curriculumData.forEach(session => {
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.dataset.id = session.id;
+
+                    const titleText = session.isHome ? session.title : `Buổi ${session.id}: ${session.title.split(': ')[1] || session.title}`;
+                    const fontWeight = session.id === this.activeSessionId ? 'font-bold' : 'font-medium';
+                    
+                    if (session.isHome) {
+                         link.className = `block px-4 py-2 rounded-md text-sm transition-colors ${fontWeight} ${
+                            session.id === this.activeSessionId ? 'bg-teal-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                        }`;
+                        link.innerHTML = `🏠 ${titleText}`;
+                    } else {
+                         link.className = `block px-4 py-2 rounded-md text-sm transition-colors ${fontWeight} ${
+                            session.id === this.activeSessionId ? 'bg-teal-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                        }`;
+                        link.innerHTML = `<span class="text-teal-400 mr-2">#${session.id}</span> ${session.title.split(': ')[1] || session.title}`;
+                    }
+                    
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.renderSession(session.id);
+                    });
+
+                    sessionListEl.appendChild(link);
+                });
+            },
+
+            renderSession(sessionId) {
+                this.activeSessionId = parseInt(sessionId, 10);
+                const session = curriculumData.find(s => s.id === this.activeSessionId);
+                if (!session) return;
+
+                const mainContentEl = document.getElementById('main-content');
+                mainContentEl.innerHTML = '';
+                
+                let contentHtml = `<div class="prose-dark max-w-none">`;
+                
+                contentHtml += `<h1 class="text-3xl lg:text-4xl font-bold text-teal-300 border-b border-gray-700 pb-4 mb-6">${session.title}</h1>`;
+
+                contentHtml += `<div class="bg-gray-800 p-4 rounded-lg border-l-4 border-teal-500 mb-8">
+                    <h2 class="text-xl font-semibold text-white mb-2">🎯 Mục tiêu</h2>
+                    <p class="text-gray-300">${session.objective}</p>
+                </div>`;
+                
+                if (session.content && session.content.length > 0) {
+                     contentHtml += `<h2 class="text-2xl font-semibold text-white mt-10 mb-4">📚 Nội dung chính</h2>`;
+                     session.content.forEach(item => {
+                        contentHtml += `
+                        <details class="bg-gray-800 rounded-lg mb-3" ${session.isHome || item.open ? 'open' : ''}>
+                            <summary class="font-semibold text-lg p-4 text-white">${item.title}</summary>
+                            <div class="p-4 border-t border-gray-700 prose-dark max-w-none">
+                                ${item.description}
+                                ${item.code_example ? this.createCodeBlock(item.code_example) : ''}
+                            </div>
+                        </details>
+                        `;
+                    });
+                }
+
+                if (session.homework && session.homework.tasks && session.homework.tasks.length > 0) {
+                    contentHtml += `<div class="bg-gray-800 p-4 rounded-lg border-l-4 border-amber-500 mt-10">
+                        <h2 class="text-xl font-semibold text-white mb-3">✏️ Bài tập thực hành</h2>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            ${session.homework.tasks.map(task => `<li>${task}</li>`).join('')}
+                        </ul>
+                    </div>`;
+                }
+                
+                 if (!session.isHome) {
+                     contentHtml += this.createPlayground(session.playground_placeholder);
+                 }
+
+                contentHtml += `</div>`;
+                mainContentEl.innerHTML = contentHtml;
+                mainContentEl.scrollTop = 0;
+
+                if (!session.isHome) {
+                    this.attachPlaygroundListeners();
+                }
+                
+                this.renderSidebar();
+            },
+            
+            createCodeBlock(code) {
+                const uniqueId = `code-${Math.random().toString(36).substr(2, 9)}`;
+                return `
+                    <div class="relative my-4">
+                        <button onclick="app.copyToClipboard(this, '${uniqueId}')" class="copy-btn-feedback absolute top-2 right-2 bg-gray-600 hover:bg-teal-600 text-white px-2 py-1 rounded text-xs">Copy</button>
+                        <pre id="${uniqueId}" class="code-font rounded-md"><code class="language-python">${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>
+                    </div>
+                `;
+            },
+
+            createPlayground(placeholder = '') {
+                return `
+                    <div class="mt-10">
+                        <h2 class="text-2xl font-semibold text-white mb-4">🎮 Sân chơi tương tác</h2>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <p class="text-sm text-gray-400 mb-4">Gõ code Python của bạn vào đây và bấm "Chạy" để xem kết quả.</p>
+                            <textarea id="playground-input" class="w-full h-48 p-3 rounded bg-gray-900 text-white code-font border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none" placeholder="Thử code ở đây...">${placeholder}</textarea>
+                            <div class="mt-4 flex items-center gap-4">
+                                <button id="run-button" class="bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-4 rounded">
+                                    ▶ Chạy
+                                 </button>
+                                 <button id="clear-button" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">
+                                    Xóa
+                                 </button>
+                            </div>
+                            <div class="mt-4">
+                                <h3 class="font-semibold text-white">Kết quả:</h3>
+                                <pre id="playground-output" class="code-font w-full min-h-[5rem] mt-2 p-3 rounded bg-gray-900 border border-gray-700 whitespace-pre-wrap"></pre>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+            
+            attachPlaygroundListeners() {
+                document.getElementById('run-button').addEventListener('click', () => this.runCode());
+                document.getElementById('clear-button').addEventListener('click', () => {
+                    const playgroundInput = document.getElementById('playground-input');
+                    const session = curriculumData.find(s => s.id === this.activeSessionId);
+                    playgroundInput.value = session.playground_placeholder || '';
+                    document.getElementById('playground-output').textContent = '';
+                });
+            },
+
+            // --- Simple Python Interpreter ---
+            async runCode() {
+                const code = document.getElementById('playground-input').value;
+                const outputEl = document.getElementById('playground-output');
+                outputEl.textContent = 'Đang chạy...';
+
+                // Use a worker to prevent UI freezing, though for this simple interpreter it might be overkill.
+                // For simplicity, we run it in the main thread but with async/await.
+                try {
+                    const interpreter = new SimplePythonInterpreter((text) => {
+                        outputEl.textContent += text + '\n';
+                    });
+                    outputEl.textContent = ''; // Clear "Đang chạy..."
+                    await interpreter.execute(code);
+                } catch (e) {
+                    outputEl.textContent = `Lỗi: ${e.message}`;
+                }
+            },
+
+            copyToClipboard(button, elementId) {
+                const textToCopy = document.getElementById(elementId).textContent;
+                const textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    button.textContent = 'Đã chép!';
+                    button.classList.add('bg-green-500');
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                        button.classList.remove('bg-green-500');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        };
+        
+        class SimplePythonInterpreter {
+            constructor(printCallback) {
+                this.print = printCallback;
+                this.scope = {};
+                this.MAX_ITERATIONS = 1000;
+            }
+
+            async execute(code) {
+                const lines = code.split('\n');
+                let i = 0;
+                while (i < lines.length) {
+                    const { nextLineIndex, block } = await this.executeLine(lines, i);
+                    i = nextLineIndex;
+                }
+            }
+            
+            evaluate(expression) {
+                // This is a security risk in a real app! Only for educational purposes.
+                // Create a function body with all variables in scope.
+                const scopeKeys = Object.keys(this.scope);
+                const scopeValues = scopeKeys.map(key => this.scope[key]);
+                try {
+                    const func = new Function(...scopeKeys, `return ${expression}`);
+                    return func(...scopeValues);
+                } catch (e) {
+                   throw new Error(`Không thể tính toán biểu thức "${expression}": ${e.message}`);
+                }
+            }
+
+            async executeLine(lines, index) {
+                const line = lines[index].trim();
+                if (!line || line.startsWith('#')) {
+                    return { nextLineIndex: index + 1, block: false };
+                }
+
+                // print()
+                let match = line.match(/^print\((.*)\)$/);
+                if (match) {
+                    const content = match[1];
+                    // Basic f-string support
+                    if (content.startsWith('f"') || content.startsWith("f'")) {
+                        const fstringContent = content.substring(2, content.length - 1);
+                        const interpolated = fstringContent.replace(/\{([^}]+)\}/g, (match, expr) => {
+                            return this.evaluate(expr);
+                        });
+                        this.print(interpolated);
+                    } else {
+                        this.print(this.evaluate(content));
+                    }
+                    return { nextLineIndex: index + 1, block: false };
+                }
+
+                // Variable assignment
+                match = line.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.*)$/);
+                if (match) {
+                    const varName = match[1];
+                    const expression = match[2];
+                     // Very basic list/dict creation
+                    if (expression.startsWith('[') || expression.startsWith('{')) {
+                       this.scope[varName] = this.evaluate(`Object(${expression})`);
+                    } else {
+                       this.scope[varName] = this.evaluate(expression);
+                    }
+                    return { nextLineIndex: index + 1, block: false };
+                }
+                
+                // if/elif/else
+                match = line.match(/^(if|elif)\s+(.*):$/);
+                if (match) {
+                    const condition = match[2];
+                    const isTrue = this.evaluate(condition);
+                    const { blockLines, endIndex } = this.getBlock(lines, index);
+                    
+                    if (isTrue) {
+                        // Execute block
+                         for (const blockLine of blockLines) {
+                            await this.execute([blockLine].join('\n'));
+                        }
+                        // Skip other elif/else
+                        return { nextLineIndex: this.findEndOfBlock(lines, index), block: true };
+                    } else {
+                        // Skip this block and proceed to next elif/else
+                        return { nextLineIndex: endIndex + 1, block: true };
+                    }
+                }
+
+                match = line.match(/^else:$/);
+                if (match) {
+                     const { blockLines, endIndex } = this.getBlock(lines, index);
+                     for (const blockLine of blockLines) {
+                        await this.execute([blockLine].join('\n'));
+                    }
+                    return { nextLineIndex: endIndex + 1, block: true };
+                }
+                
+                // for loop
+                match = line.match(/^for\s+([a-zA-Z_][a-zA-Z0-9_]*)\s+in\s+range\((.*)\):$/);
+                if (match) {
+                    const loopVar = match[1];
+                    const rangeArgs = this.evaluate(`[${match[2]}]`);
+                    const { blockLines, endIndex } = this.getBlock(lines, index);
+                    
+                    let start = 0, stop, step = 1;
+                    if (rangeArgs.length === 1) stop = rangeArgs[0];
+                    else if (rangeArgs.length >= 2) [start, stop] = rangeArgs;
+                    if (rangeArgs.length === 3) step = rangeArgs[2];
+
+                    for (let i = start; i < stop; i += step) {
+                        this.scope[loopVar] = i;
+                        for (const blockLine of blockLines) {
+                            await this.execute([blockLine].join('\n'));
+                        }
+                    }
+                    return { nextLineIndex: endIndex + 1, block: true };
+                }
+
+                throw new Error(`Cú pháp không được hỗ trợ: "${line}"`);
+            }
+
+            getIndentation(line) {
+                return line.match(/^\s*/)[0].length;
+            }
+
+            getBlock(lines, startIndex) {
+                const blockLines = [];
+                const startIndent = this.getIndentation(lines[startIndex]);
+                let i = startIndex + 1;
+                while (i < lines.length) {
+                    const currentIndent = this.getIndentation(lines[i]);
+                    if (lines[i].trim() === '') { // ignore empty lines
+                        i++;
+                        continue;
+                    }
+                    if (currentIndent > startIndent) {
+                        blockLines.push(lines[i]);
+                    } else {
+                        break;
+                    }
+                    i++;
+                }
+                return { blockLines, endIndex: i - 1 };
+            }
+
+            findEndOfBlock(lines, startIndex) {
+                let i = startIndex;
+                const startIndent = this.getIndentation(lines[i]);
+                i++;
+                while (i < lines.length) {
+                    if (lines[i].trim() === '') {
+                        i++;
+                        continue;
+                    }
+                    const currentIndent = this.getIndentation(lines[i]);
+                    if (currentIndent <= startIndent) {
+                        const lineContent = lines[i].trim();
+                        if (lineContent.startsWith('elif') || lineContent.startsWith('else:')) {
+                           // continue search
+                        } else {
+                            return i; // End of the entire if/elif/else structure
+                        }
+                    }
+                    i++;
+                }
+                return i; // Reached end of code
+            }
+
+        }
+
+        app.init();
+    </script>
+</body>
+</html>
