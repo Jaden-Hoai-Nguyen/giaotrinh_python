@@ -370,7 +370,7 @@
                 id: 7, 
                 title: "Buổi 7: Danh sách (Lists)", 
                 objective: "Học cách tạo, truy cập, thay đổi, thêm, xóa và sắp xếp các phần tử trong danh sách.", 
-                playground_placeholder: `mon_hoc = ["Toán", "Văn", "Anh"]\nprint(mon_hoc)\n\n# Thêm một môn học\nmon_hoc.append("Lý")\nprint(mon_hoc)\n\n# Truy cập phần tử đầu tiên\nprint(f"Môn học đầu tiên là {mon_hoc[0]}")`,
+                playground_placeholder: `mon_hoc = ["Toán", "Văn", "Anh"]\nprint(mon_hoc)\n\n# Thêm một môn học\nmon_hoc.append("Lý")\nprint(mon_hoc)\n\n# Sắp xếp danh sách\nmon_hoc.sort()\nprint(mon_hoc)\n\n# Truy cập phần tử đầu tiên\nprint(f"Môn học đầu tiên là {mon_hoc[0]}")`,
                 content: [
                      {
                         title: "1. Giới thiệu về List",
@@ -413,7 +413,40 @@
             { id: 11, title: "Buổi 11: Xử lý File & JSON", objective: "Đọc và ghi file text, xử lý dữ liệu JSON.", content: [], homework: {} },
             { id: 12, title: "Buổi 12: Lập trình hướng đối tượng (OOP)", objective: "Tìm hiểu về Class, Object và các khái niệm cơ bản của OOP.", content: [], homework: {} },
             { id: 13, title: "Buổi 13: Kế thừa (Inheritance)", objective: "Hiểu và áp dụng tính kế thừa trong OOP.", content: [], homework: {} },
-            { id: 14, title: "Buổi 14: Module (Math, Datetime, Random)", objective: "Sử dụng các module có sẵn để giải quyết bài toán.", content: [], homework: {} },
+            {
+                id: 14, title: "Buổi 14: Modules (Math, Random, Datetime)",
+                objective: "Sử dụng các module có sẵn để giải quyết bài toán.",
+                playground_placeholder: `# Sân chơi đã tích hợp sẵn các thư viện math, random, datetime\n# bạn không cần import.\n\n# Thư viện Math\nprint(f"Số Pi là: {math.pi}")\nprint(f"Căn bậc hai của 16 là: {math.sqrt(16)}")\n\n# Thư viện Random\nso_ngau_nhien = random.randint(1, 100)\nprint(f"Số ngẫu nhiên từ 1-100: {so_ngau_nhien}")\n\n# Thư viện Datetime\nhom_nay = datetime.date.today()\nprint(f"Hôm nay là ngày: {hom_nay}")`,
+                content: [
+                    {
+                        title: "1. Giới thiệu về Module",
+                        description: "<p>Một module là một file chứa code Python. Module có thể định nghĩa các hàm, lớp và biến. Việc sử dụng module giúp bạn tổ chức code một cách logic và tái sử dụng code trong các dự án khác nhau.</p><p>Trong Sân chơi này, các thư viện phổ biến như <code>math</code>, <code>random</code> và <code>datetime</code> đã được tích hợp sẵn, bạn có thể sử dụng trực tiếp mà không cần lệnh <code>import</code>.</p>"
+                    },
+                    {
+                        title: "2. Thư viện Math",
+                        description: "<p>Cung cấp các hàm toán học. Một vài hàm phổ biến:</p><ul><li><code>math.sqrt(x)</code>: Trả về căn bậc hai của x.</li><li><code>math.ceil(x)</code>: Làm tròn một số lên số nguyên gần nhất.</li><li><code>math.floor(x)</code>: Làm tròn một số xuống số nguyên gần nhất.</li><li><code>math.pow(x, y)</code>: Trả về x lũy thừa y.</li><li><code>math.pi</code>: Hằng số Pi (3.14159...).</li></ul>",
+                        code_example: `import math\n\nx = 16\nprint(math.sqrt(x)) # 4.0\n\ny = 2.3\nprint(math.ceil(y)) # 3\nprint(math.floor(y)) # 2`
+                    },
+                    {
+                        title: "3. Thư viện Random",
+                        description: "<p>Dùng để tạo ra các số ngẫu nhiên.</p><ul><li><code>random.randint(a, b)</code>: Trả về một số nguyên ngẫu nhiên trong khoảng [a, b].</li><li><code>random.random()</code>: Trả về một số thực ngẫu nhiên trong khoảng [0.0, 1.0).</li><li><code>random.choice(sequence)</code>: Trả về một phần tử ngẫu nhiên từ một sequence (ví dụ: list).</li><li><code>random.shuffle(list)</code>: Xáo trộn các phần tử của một list.</li></ul>",
+                        code_example: `import random\n\nprint(random.randint(1, 10))\n\nmy_list = ['táo', 'cam', 'chuối']\nrandom.shuffle(my_list)\nprint(my_list)\nprint(random.choice(my_list))`
+                    },
+                    {
+                        title: "4. Thư viện Datetime",
+                        description: "<p>Dùng để làm việc với ngày và giờ.</p><ul><li><code>datetime.datetime.now()</code>: Trả về ngày và giờ hiện tại.</li><li><code>datetime.date.today()</code>: Trả về ngày hiện tại.</li><li>Đối tượng datetime có phương thức <code>strftime()</code> để định dạng ngày giờ thành chuỗi.</li></ul>",
+                        code_example: `import datetime\n\nx = datetime.datetime.now()\nprint(x)\nprint(x.year)\nprint(x.strftime("%A")) # In ra tên ngày trong tuần`
+                    }
+                ],
+                homework: {
+                    title: "Bài tập về nhà",
+                    tasks: [
+                        "Viết chương trình tung xúc xắc (in ra một số ngẫu nhiên từ 1 đến 6).",
+                        "Viết chương trình tính diện tích hình tròn khi biết bán kính (sử dụng <code>math.pi</code>).",
+                        "In ra ngày tháng năm hiện tại theo định dạng 'dd-mm-YYYY'."
+                    ]
+                }
+            },
             { id: 15, title: "Buổi 15: Dự án cuối khóa", objective: "Áp dụng tất cả kiến thức đã học để xây dựng một dự án hoàn chỉnh.", content: [], homework: {} }
         ];
 
@@ -570,7 +603,7 @@
                     <div class="mt-10">
                         <h2 class="text-2xl font-semibold text-white mb-4">🎮 Sân chơi tương tác</h2>
                         <div class="bg-gray-800 rounded-lg p-4">
-                            <p class="text-sm text-gray-400 mb-4">Gõ code Python của bạn vào đây và bấm "Chạy" để xem kết quả.</p>
+                            <p class="text-sm text-gray-400 mb-4">Gõ code Python của bạn vào đây và bấm "Chạy" để xem kết quả. Các thư viện <code>math</code>, <code>random</code>, <code>datetime</code> đã được tích hợp sẵn.</p>
                             <textarea id="playground-input" class="w-full h-48 p-3 rounded bg-gray-900 text-white code-font border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none" placeholder="Thử code ở đây...">${placeholder}</textarea>
                             <div class="mt-4 flex items-center gap-4">
                                 <button id="run-button" class="bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-4 rounded">
@@ -604,18 +637,23 @@
                 const code = document.getElementById('playground-input').value;
                 const outputEl = document.getElementById('playground-output');
                 outputEl.textContent = 'Đang chạy...';
-
-                // Use a worker to prevent UI freezing, though for this simple interpreter it might be overkill.
-                // For simplicity, we run it in the main thread but with async/await.
-                try {
-                    const interpreter = new SimplePythonInterpreter((text) => {
-                        outputEl.textContent += text + '\n';
-                    });
-                    outputEl.textContent = ''; // Clear "Đang chạy..."
-                    await interpreter.execute(code);
-                } catch (e) {
-                    outputEl.textContent = `Lỗi: ${e.message}`;
-                }
+                
+                // We use a timeout to allow the "Đang chạy..." message to render before potential blocking code.
+                setTimeout(async () => {
+                    try {
+                        const interpreter = new SimplePythonInterpreter((text) => {
+                           if(outputEl.textContent === 'Đang chạy...') outputEl.textContent = '';
+                           outputEl.textContent += text + '\n';
+                        });
+                        if(outputEl.textContent === 'Đang chạy...') outputEl.textContent = ''; 
+                        await interpreter.execute(code);
+                        if(outputEl.textContent === '') {
+                           outputEl.textContent = '(Không có gì để in ra)';
+                        }
+                    } catch (e) {
+                        outputEl.textContent = `Lỗi: ${e.message}`;
+                    }
+                }, 10);
             },
 
             copyToClipboard(button, elementId) {
@@ -642,15 +680,81 @@
         class SimplePythonInterpreter {
             constructor(printCallback) {
                 this.print = printCallback;
-                this.scope = {};
+                this.scope = this.getInitialScope();
                 this.MAX_ITERATIONS = 1000;
+            }
+
+            getInitialScope() {
+                 // Mock Datetime class
+                class MockDateTime {
+                    constructor(date) {
+                        this.date = date;
+                    }
+                    get year() { return this.date.getFullYear(); }
+                    strftime(format) {
+                        if (format === '%A') {
+                            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                            return days[this.date.getDay()];
+                        }
+                        if (format === '%d-%m-%Y') {
+                           const pad = (num) => String(num).padStart(2, '0');
+                           return `${pad(this.date.getDate())}-${pad(this.date.getMonth() + 1)}-${this.date.getFullYear()}`;
+                        }
+                        return this.date.toString();
+                    }
+                     toString() {
+                        return this.date.toISOString();
+                    }
+                }
+                
+                return {
+                    math: {
+                        sqrt: Math.sqrt,
+                        pow: Math.pow,
+                        ceil: Math.ceil,
+                        floor: Math.floor,
+                        pi: Math.PI,
+                        factorial: (n) => {
+                            if (n === 0) return 1;
+                            let r = 1;
+                            for (let i = 2; i <= n; i++) r = r * i;
+                            return r;
+                        }
+                    },
+                    random: {
+                        randint: (a, b) => Math.floor(Math.random() * (b - a + 1)) + a,
+                        random: Math.random,
+                        choice: (arr) => arr[Math.floor(Math.random() * arr.length)],
+                        shuffle: (arr) => {
+                            for (let i = arr.length - 1; i > 0; i--) {
+                                const j = Math.floor(Math.random() * (i + 1));
+                                [arr[i], arr[j]] = [arr[j], arr[i]];
+                            }
+                            return arr; // In-place shuffle
+                        }
+                    },
+                    datetime: {
+                       datetime: {
+                           now: () => new MockDateTime(new Date())
+                       },
+                       date: {
+                           today: () => new Date().toISOString().split('T')[0]
+                       }
+                    },
+                    // built-in functions
+                    int: (v) => parseInt(v, 10),
+                    float: (v) => parseFloat(v),
+                    str: (v) => String(v),
+                    len: (v) => v.length,
+                    type: (v) => typeof v,
+                };
             }
 
             async execute(code) {
                 const lines = code.split('\n');
                 let i = 0;
                 while (i < lines.length) {
-                    const { nextLineIndex, block } = await this.executeLine(lines, i);
+                    const { nextLineIndex } = await this.executeLine(lines, i);
                     i = nextLineIndex;
                 }
             }
@@ -667,142 +771,164 @@
                    throw new Error(`Không thể tính toán biểu thức "${expression}": ${e.message}`);
                 }
             }
-
+            
+            // This method handles a single line or a block of code
             async executeLine(lines, index) {
-                const line = lines[index].trim();
-                if (!line || line.startsWith('#')) {
-                    return { nextLineIndex: index + 1, block: false };
+                const line = lines[index];
+                const trimmedLine = line.trim();
+                
+                if (!trimmedLine || trimmedLine.startsWith('#')) {
+                    return { nextLineIndex: index + 1 };
+                }
+
+                // Method calls like my_list.append(1) or my_list.sort()
+                let match = trimmedLine.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\.([a-zA-Z_]+)\((.*)\)$/);
+                if (match) {
+                    const varName = match[1];
+                    const methodName = match[2];
+                    const argsString = match[3];
+                    
+                    if (this.scope[varName] && Array.isArray(this.scope[varName])) {
+                        const list = this.scope[varName];
+                        const args = argsString ? this.evaluate(`[${argsString}]`) : [];
+                        
+                        if (methodName === 'append' && args.length === 1) list.push(args[0]);
+                        else if (methodName === 'pop' && args.length <= 1) list.pop(args[0]);
+                        else if (methodName === 'sort') list.sort((a,b) => a-b);
+                        else throw new Error(`Phương thức .${methodName}() không được hỗ trợ cho list.`);
+
+                        return { nextLineIndex: index + 1 };
+                    }
                 }
 
                 // print()
-                let match = line.match(/^print\((.*)\)$/);
+                match = trimmedLine.match(/^print\((.*)\)$/);
                 if (match) {
                     const content = match[1];
                     // Basic f-string support
                     if (content.startsWith('f"') || content.startsWith("f'")) {
                         const fstringContent = content.substring(2, content.length - 1);
                         const interpolated = fstringContent.replace(/\{([^}]+)\}/g, (match, expr) => {
-                            return this.evaluate(expr);
+                             try { return this.evaluate(expr); } catch { return `{${expr}}`;}
                         });
                         this.print(interpolated);
                     } else {
                         this.print(this.evaluate(content));
                     }
-                    return { nextLineIndex: index + 1, block: false };
+                    return { nextLineIndex: index + 1 };
                 }
 
                 // Variable assignment
-                match = line.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.*)$/);
+                match = trimmedLine.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.*)$/);
                 if (match) {
                     const varName = match[1];
                     const expression = match[2];
-                     // Very basic list/dict creation
-                    if (expression.startsWith('[') || expression.startsWith('{')) {
-                       this.scope[varName] = this.evaluate(`Object(${expression})`);
-                    } else {
-                       this.scope[varName] = this.evaluate(expression);
-                    }
-                    return { nextLineIndex: index + 1, block: false };
+                    this.scope[varName] = this.evaluate(expression);
+                    return { nextLineIndex: index + 1 };
                 }
                 
                 // if/elif/else
-                match = line.match(/^(if|elif)\s+(.*):$/);
+                match = trimmedLine.match(/^(if|elif)\s+(.*):$/);
                 if (match) {
+                    const isElif = match[1] === 'elif';
+                    // if isElif, check if a previous block in the chain was executed
+                    if (isElif && this.scope['__if_chain_executed']) {
+                        const { endIndex } = this.getBlock(lines, index);
+                        return { nextLineIndex: endIndex + 1 };
+                    }
+                    
                     const condition = match[2];
                     const isTrue = this.evaluate(condition);
                     const { blockLines, endIndex } = this.getBlock(lines, index);
                     
+                    this.scope['__if_chain_executed'] = isTrue;
+
                     if (isTrue) {
-                        // Execute block
-                         for (const blockLine of blockLines) {
-                            await this.execute([blockLine].join('\n'));
-                        }
-                        // Skip other elif/else
-                        return { nextLineIndex: this.findEndOfBlock(lines, index), block: true };
+                         for (const blockLine of blockLines) await this.execute(blockLine);
+                        // After executing a true block, skip the rest of the if/elif/else chain
+                        return { nextLineIndex: this.findEndOfBlockChain(lines, index) };
                     } else {
-                        // Skip this block and proceed to next elif/else
-                        return { nextLineIndex: endIndex + 1, block: true };
+                        // Condition is false, just skip this block
+                        return { nextLineIndex: endIndex + 1 };
                     }
                 }
 
-                match = line.match(/^else:$/);
+                match = trimmedLine.match(/^else:$/);
                 if (match) {
-                     const { blockLines, endIndex } = this.getBlock(lines, index);
-                     for (const blockLine of blockLines) {
-                        await this.execute([blockLine].join('\n'));
+                    const executed = this.scope['__if_chain_executed'];
+                    delete this.scope['__if_chain_executed']; // cleanup
+                    const { blockLines, endIndex } = this.getBlock(lines, index);
+                    if (!executed) {
+                         for (const blockLine of blockLines) await this.execute(blockLine);
                     }
-                    return { nextLineIndex: endIndex + 1, block: true };
+                    return { nextLineIndex: endIndex + 1 };
                 }
                 
                 // for loop
-                match = line.match(/^for\s+([a-zA-Z_][a-zA-Z0-9_]*)\s+in\s+range\((.*)\):$/);
-                if (match) {
+                match = trimmedLine.match(/^for\s+([a-zA-Z_][a-zA-Z0-9_]*)\s+in\s+(.*):$/);
+                 if (match) {
                     const loopVar = match[1];
-                    const rangeArgs = this.evaluate(`[${match[2]}]`);
+                    const iterableExpr = match[2];
+                    const iterable = this.evaluate(iterableExpr);
                     const { blockLines, endIndex } = this.getBlock(lines, index);
                     
-                    let start = 0, stop, step = 1;
-                    if (rangeArgs.length === 1) stop = rangeArgs[0];
-                    else if (rangeArgs.length >= 2) [start, stop] = rangeArgs;
-                    if (rangeArgs.length === 3) step = rangeArgs[2];
-
-                    for (let i = start; i < stop; i += step) {
-                        this.scope[loopVar] = i;
-                        for (const blockLine of blockLines) {
-                            await this.execute([blockLine].join('\n'));
-                        }
+                    if (iterable && typeof iterable[Symbol.iterator] === 'function') {
+                       for (const item of iterable) {
+                          this.scope[loopVar] = item;
+                          for (const blockLine of blockLines) {
+                              await this.execute(blockLine);
+                          }
+                       }
+                    } else {
+                        throw new Error(`Đối tượng không thể lặp: ${iterableExpr}`);
                     }
-                    return { nextLineIndex: endIndex + 1, block: true };
+                    return { nextLineIndex: endIndex + 1 };
+                }
+                
+                // Reset if chain flag if we are out of a block
+                if (this.scope['__if_chain_executed'] !== undefined) {
+                    delete this.scope['__if_chain_executed'];
                 }
 
-                throw new Error(`Cú pháp không được hỗ trợ: "${line}"`);
+                throw new Error(`Cú pháp không được hỗ trợ: "${trimmedLine}"`);
             }
-
-            getIndentation(line) {
-                return line.match(/^\s*/)[0].length;
-            }
+            
+            // Helper functions for parsing blocks
+            getIndentation(line) { return line.match(/^\s*/)[0].length; }
 
             getBlock(lines, startIndex) {
                 const blockLines = [];
                 const startIndent = this.getIndentation(lines[startIndex]);
                 let i = startIndex + 1;
                 while (i < lines.length) {
+                    if (lines[i].trim() === '') { i++; continue; }
                     const currentIndent = this.getIndentation(lines[i]);
-                    if (lines[i].trim() === '') { // ignore empty lines
-                        i++;
-                        continue;
-                    }
-                    if (currentIndent > startIndent) {
-                        blockLines.push(lines[i]);
-                    } else {
-                        break;
-                    }
+                    if (currentIndent > startIndent) blockLines.push(lines[i]);
+                    else break;
                     i++;
                 }
                 return { blockLines, endIndex: i - 1 };
             }
-
-            findEndOfBlock(lines, startIndex) {
+            
+            findEndOfBlockChain(lines, startIndex) {
                 let i = startIndex;
                 const startIndent = this.getIndentation(lines[i]);
                 i++;
                 while (i < lines.length) {
-                    if (lines[i].trim() === '') {
-                        i++;
-                        continue;
-                    }
+                    if (lines[i].trim() === '') { i++; continue; }
                     const currentIndent = this.getIndentation(lines[i]);
                     if (currentIndent <= startIndent) {
                         const lineContent = lines[i].trim();
                         if (lineContent.startsWith('elif') || lineContent.startsWith('else:')) {
-                           // continue search
-                        } else {
-                            return i; // End of the entire if/elif/else structure
+                           const { endIndex } = this.getBlock(lines, i);
+                           i = endIndex + 1;
+                           continue;
                         }
+                        return i;
                     }
                     i++;
                 }
-                return i; // Reached end of code
+                return i;
             }
 
         }
