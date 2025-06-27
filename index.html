@@ -85,24 +85,39 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200">
+<body class="bg-gray-900 text-gray-200 overflow-hidden h-screen">
 
-    <div class="flex flex-col md:flex-row h-screen">
-        <!-- Sidebar - Navigation -->
-        <aside id="sidebar" class="w-full md:w-80 bg-gray-900 border-r border-gray-700 p-4 space-y-4 overflow-y-auto">
+    <!-- Hamburger Button - only visible on mobile -->
+    <button id="menu-toggle" class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-gray-800 text-white shadow-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    </button>
+    
+    <!-- Sidebar - Navigation -->
+    <!-- Always fixed, but hidden off-screen on mobile by default -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-80 bg-gray-900 border-r border-gray-700 p-4 space-y-4 overflow-y-auto transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+        <div class="flex justify-between items-center">
             <h1 class="text-2xl font-bold text-white flex items-center">
                 <span class="text-3xl mr-2">🚀</span> Python Quest
             </h1>
-            <nav id="session-list" class="space-y-1">
-                <!-- Session links will be dynamically inserted here -->
-            </nav>
-        </aside>
+            <!-- Close button for mobile -->
+            <button id="menu-close" class="md:hidden p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav id="session-list" class="space-y-1">
+            <!-- Session links will be dynamically inserted here -->
+        </nav>
+    </aside>
 
-        <!-- Main Content -->
-        <main id="main-content" class="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto">
-            <!-- Content will be dynamically inserted here -->
-        </main>
-    </div>
+    <!-- Overlay for mobile menu -->
+    <div id="menu-overlay" class="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
+
+    <!-- Main Content -->
+    <!-- On desktop, has a left margin to account for the fixed sidebar -->
+    <main id="main-content" class="h-full w-full overflow-y-auto p-6 pt-20 md:pt-8 lg:p-10 md:ml-80">
+        <!-- Content will be dynamically inserted here -->
+    </main>
+
 
     <script>
         // --- MODEL ---
@@ -408,8 +423,47 @@
             
             init() {
                 document.addEventListener('DOMContentLoaded', () => {
+                    this.setupResponsiveMenu();
                     this.renderSidebar();
                     this.renderSession(this.activeSessionId);
+                });
+            },
+            
+            setupResponsiveMenu() {
+                const toggleButton = document.getElementById('menu-toggle');
+                const closeButton = document.getElementById('menu-close');
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('menu-overlay');
+
+                if (!toggleButton || !sidebar || !overlay || !closeButton) {
+                    console.error("Responsive menu elements not found!");
+                    return;
+                }
+                
+                const openMenu = () => {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                }
+
+                const closeMenu = () => {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                };
+
+                toggleButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openMenu();
+                });
+
+                closeButton.addEventListener('click', closeMenu);
+                overlay.addEventListener('click', closeMenu);
+
+                sidebar.addEventListener('click', (e) => {
+                    if (e.target.closest('nav a')) {
+                        if (window.innerWidth < 768) { 
+                            closeMenu();
+                        }
+                    }
                 });
             },
 
